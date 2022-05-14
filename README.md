@@ -1,15 +1,10 @@
 # instagram
 
-A new Flutter project.
+An instagram Clone app
 
-## Getting Started
+## This is an app built using FLUTTER and FIREBASE
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+ -The app consists of user state management, database management, flutter concepts, material theme UI
 
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
