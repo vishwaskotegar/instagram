@@ -1,0 +1,11 @@
+{
+  "files.autoSave": "afterDelay",
+  "editor.fontSize": 16,
+  "editor.accessibilityPageSize": 10,
+  "editor.scrollbar.horizontalScrollbarSize": 12,
+  "editor.scrollbar.verticalScrollbarSize": 14,
+  "workbench.sash.size": 4,
+  "editor.mouseWheelZoom": false,
+  "editor.formatOnSave": false,
+  "editor.formatOnType": true
+}
