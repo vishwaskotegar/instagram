@@ -7,5 +7,6 @@
   "workbench.sash.size": 4,
   "editor.mouseWheelZoom": false,
   "editor.formatOnSave": false,
-  "editor.formatOnType": true
+  "editor.formatOnType": true,
+  "cmake.configureOnOpen": false
 }
