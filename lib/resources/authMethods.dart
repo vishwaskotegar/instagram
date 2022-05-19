@@ -43,14 +43,16 @@ class AuthMethods {
             bio: bio,
             followers: [],
             following: [],
-            photoUrl: photoUrl);
+            photoUrl: photoUrl,
+            uid : cred.user!.uid,
+            );
 
         //adduser to database
         await _firestore
             .collection("users")
             .doc(cred.user!.uid)
             .set(_userModel.toJson());
-        res = "success";
+        res = "Success";
       }
     } on FirebaseAuthException catch (err) {
       if (err.code == 'invalid-email') {

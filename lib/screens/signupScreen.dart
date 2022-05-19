@@ -60,7 +60,7 @@ class _SignupScreenState extends State<SignupScreen> {
       _isLoading = false;
     });
 
-    if (res != 'success') {
+    if (res != 'Success') {
       AdvanceSnackBar(message: res, bgColor: Colors.red, isFixed: false)
           .show(context);
     }

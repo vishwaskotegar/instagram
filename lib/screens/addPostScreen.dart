@@ -1,9 +1,11 @@
 import 'dart:typed_data';
 
+import 'package:advance_notification/advance_notification.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram/model/userModel.dart';
 import 'package:instagram/providers/userProvider.dart';
+import 'package:instagram/resources/firestoreMethods.dart';
 import 'package:instagram/utils/colors.dart';
 import 'package:instagram/utils/utils.dart';
 import 'package:instagram/widgets/textFieldInput.dart';
@@ -18,13 +20,47 @@ class AddPostScreen extends StatefulWidget {
 
 class _AddPostScreenState extends State<AddPostScreen> {
   Uint8List? _file;
-  TextEditingController _descriptionController = TextEditingController();
+  bool _isloading = false;
+  final TextEditingController _descriptionController = TextEditingController();
+
+  void postImage(String uid, String username, String profImage) async {
+    try {
+      setState(() {
+        _isloading = true;
+      });
+      String res = await FirestoreMethods().uploadPost(
+          _file!, _descriptionController.text, uid, username, profImage);
+
+      setState(() {
+        _isloading = false;
+      });
+      if (res == "Success") {
+        const AdvanceSnackBar(
+                message: "Posted!", isFixed: false, bgColor: blueColor)
+            .show(context);
+        clearImage();
+      } else {
+        AdvanceSnackBar(message: res, isFixed: false, bgColor: blueColor)
+            .show(context);
+      }
+    } catch (e) {
+      AdvanceSnackBar(
+              message: e.toString(), bgColor: Colors.red, isFixed: false)
+          .show(context);
+    }
+  }
 
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
     _descriptionController.dispose();
+  }
+
+  void clearImage() {
+    setState(() {
+      _file = null;
+    });
   }
 
   @override
@@ -36,7 +72,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
           context: context,
           builder: (context) {
             return SimpleDialog(
-              title: Text(
+              title: const Text(
                 "Create a Post",
                 style: TextStyle(
                   fontWeight: FontWeight.normal,
@@ -46,7 +82,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
               children: [
                 SimpleDialogOption(
                   padding: const EdgeInsets.all(20),
-                  child: Text("Take a Photo"),
+                  child: const Text("Take a Photo"),
                   onPressed: () async {
                     Navigator.of(context).pop();
                     Uint8List file = await pickImage(ImageSource.camera);
@@ -57,7 +93,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 ),
                 SimpleDialogOption(
                   padding: const EdgeInsets.all(20),
-                  child: Text("Choose from Gallery"),
+                  child: const Text("Choose from Gallery"),
                   onPressed: () async {
                     Navigator.of(context).pop();
                     Uint8List file = await pickImage(ImageSource.gallery);
@@ -68,7 +104,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 ),
                 SimpleDialogOption(
                   padding: const EdgeInsets.all(20),
-                  child: Text("Cancel"),
+                  child: const Text("Cancel"),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -89,11 +125,11 @@ class _AddPostScreenState extends State<AddPostScreen> {
             appBar: AppBar(
               backgroundColor: mobileBackgroundColor,
               leading: IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.west_rounded,
                   size: 30,
                 ),
-                onPressed: () {},
+                onPressed: clearImage,
               ),
               title: const Text(
                 "New Post",
@@ -101,8 +137,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
               ),
               actions: [
                 IconButton(
-                  onPressed: () {},
-                  icon: Icon(
+                  onPressed: () => postImage(
+                      _usermodel.uid, _usermodel.username, _usermodel.photoUrl),
+                  icon: const Icon(
                     Icons.done,
                     color: blueColor,
                     size: 30,
@@ -116,19 +153,24 @@ class _AddPostScreenState extends State<AddPostScreen> {
             ),
             body: Column(
               children: [
+                _isloading ? const LinearProgressIndicator(minHeight: 2,) : Container(),
+                const Divider(
+                  thickness: 1,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CircleAvatar(
-                      backgroundImage: NetworkImage(_usermodel.photoUrl),
+                      backgroundImage:
+                          Provider.of<UserProvider>(context).getProfilePic,
                     ),
                     Container(
                       // color: blueColor,
                       width: MediaQuery.of(context).size.width * 0.5,
                       child: TextField(
                         controller: _descriptionController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: "Write a caption...",
                           border: InputBorder.none,
                         ),

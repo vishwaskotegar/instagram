@@ -42,6 +42,7 @@ dependencies:
   firebase_storage: ^10.2.15
   advance_notification: ^1.0.6
   provider: ^6.0.2
+  uuid: ^3.0.6
 
 dev_dependencies:
   flutter_test:

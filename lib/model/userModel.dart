@@ -8,9 +8,10 @@ class UserModel {
   final List followers;
   final List following;
   final String photoUrl;
-
+  final String uid;
   UserModel(
-      {required this.username,
+      {required this.uid,
+        required this.username,
       required this.email,
       // this.password,
       required this.bio,
@@ -26,6 +27,7 @@ class UserModel {
         "followers": followers,
         "following": following,
         "photoUrl": photoUrl,
+        "uid": uid,
       };
 
   static UserModel fromSnap(DocumentSnapshot snapshot) {
@@ -36,6 +38,7 @@ class UserModel {
         bio: snap['bio'],
         followers: snap["followers"],
         following: snap["following"],
+        uid: snap["uid"],
         photoUrl: snap["photoUrl"]);
   }
 }
