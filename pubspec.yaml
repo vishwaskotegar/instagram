@@ -43,6 +43,9 @@ dependencies:
   advance_notification: ^1.0.6
   provider: ^6.0.2
   uuid: ^3.0.6
+  intl: ^0.17.0
+  
+  
 
 dev_dependencies:
   flutter_test:

@@ -13,7 +13,7 @@ class UserProvider with ChangeNotifier {
 
   Future<void> refreshUser() async {
     _userModel = await _authMethods.getUserDetails();
-    _profilePic = await NetworkImage(_userModel!.photoUrl);
+    _profilePic = await NetworkImage(_userModel!.profImage);
     // _userModel = userModel;
     notifyListeners();
   }

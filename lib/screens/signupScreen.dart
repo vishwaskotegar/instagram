@@ -46,6 +46,21 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   void signUpUser() async {
+    if (_image == null) {
+      const AdvanceSnackBar(
+          message: "Please Upload an Image",
+          bgColor: Colors.red,
+          isFixed: false).show(context);
+          return;
+    }else if (_usernameController.text == "") {
+      const AdvanceSnackBar(
+          message: "Please Enter Username!",
+          bgColor: Colors.red,
+          isFixed: false).show(context);
+          return;
+    }
+    
+
     setState(() {
       _isLoading = true;
     });
@@ -63,13 +78,11 @@ class _SignupScreenState extends State<SignupScreen> {
     if (res != 'Success') {
       AdvanceSnackBar(message: res, bgColor: Colors.red, isFixed: false)
           .show(context);
-    }
-    else{
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => const ResponsiveLayout(
-            webScreenLayout: WebScreenLayout(),
-            mobileScreenLayout: MobileScreenLayout())
-            ));
+    } else {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+              webScreenLayout: WebScreenLayout(),
+              mobileScreenLayout: MobileScreenLayout())));
     }
   }
 
@@ -173,15 +186,17 @@ class _SignupScreenState extends State<SignupScreen> {
               //login buttton
               InkWell(
                 onTap: () => signUpUser(),
-                child: _isLoading ? const CircularProgressIndicator() :
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  alignment: Alignment.center,
-                  child: const Text("sign up"),
-                  decoration: BoxDecoration(
-                      color: blueColor, borderRadius: BorderRadius.circular(4)),
-                  width: double.infinity,
-                ),
+                child: _isLoading
+                    ? const CircularProgressIndicator()
+                    : Container(
+                        padding: const EdgeInsets.all(12),
+                        alignment: Alignment.center,
+                        child: const Text("sign up"),
+                        decoration: BoxDecoration(
+                            color: blueColor,
+                            borderRadius: BorderRadius.circular(4)),
+                        width: double.infinity,
+                      ),
               ),
               const SizedBox(
                 height: 12,

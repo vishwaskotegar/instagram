@@ -137,8 +137,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
               ),
               actions: [
                 IconButton(
-                  onPressed: () => postImage(
-                      _usermodel.uid, _usermodel.username, _usermodel.photoUrl),
+                  onPressed: () => postImage(_usermodel.uid,
+                      _usermodel.username, _usermodel.profImage),
                   icon: const Icon(
                     Icons.done,
                     color: blueColor,
@@ -153,7 +153,11 @@ class _AddPostScreenState extends State<AddPostScreen> {
             ),
             body: Column(
               children: [
-                _isloading ? const LinearProgressIndicator(minHeight: 2,) : Container(),
+                _isloading
+                    ? const LinearProgressIndicator(
+                        minHeight: 2,
+                      )
+                    : Container(),
                 const Divider(
                   thickness: 1,
                 ),

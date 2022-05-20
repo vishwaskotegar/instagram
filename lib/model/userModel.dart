@@ -7,17 +7,17 @@ class UserModel {
   final String bio;
   final List followers;
   final List following;
-  final String photoUrl;
+  final String profImage;
   final String uid;
   UserModel(
       {required this.uid,
-        required this.username,
+      required this.username,
       required this.email,
       // this.password,
       required this.bio,
       required this.followers,
       required this.following,
-      required this.photoUrl});
+      required this.profImage});
 
   Map<String, dynamic> toJson() => {
         "username": username,
@@ -26,7 +26,7 @@ class UserModel {
         "bio": bio,
         "followers": followers,
         "following": following,
-        "photoUrl": photoUrl,
+        "profImage": profImage,
         "uid": uid,
       };
 
@@ -39,6 +39,6 @@ class UserModel {
         followers: snap["followers"],
         following: snap["following"],
         uid: snap["uid"],
-        photoUrl: snap["photoUrl"]);
+        profImage: snap["profImage"]);
   }
 }

@@ -26,7 +26,7 @@ class PostModel {
         "description": description,
         // "password" : password,
         "postId": postId,
-        "datPublished": datePublished,
+        "datePublished": datePublished,
         "profImage": profImage,
         "photoUrl": photoUrl,
         "likes": likes,

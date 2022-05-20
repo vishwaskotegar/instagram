@@ -11,7 +11,8 @@ class AuthMethods {
 
   Future<UserModel> getUserDetails() async {
     User currentUser = _auth.currentUser!;
-    DocumentSnapshot snapshot = await _firestore.collection('users').doc(currentUser.uid).get();
+    DocumentSnapshot snapshot =
+        await _firestore.collection('users').doc(currentUser.uid).get();
     return UserModel.fromSnap(snapshot);
   }
 
@@ -37,15 +38,15 @@ class AuthMethods {
         print(photoUrl);
 
         UserModel _userModel = UserModel(
-            username: username,
-            email: email,
-            // password: password,
-            bio: bio,
-            followers: [],
-            following: [],
-            photoUrl: photoUrl,
-            uid : cred.user!.uid,
-            );
+          username: username,
+          email: email,
+          // password: password,
+          bio: bio,
+          followers: [],
+          following: [],
+          profImage: photoUrl,
+          uid: cred.user!.uid,
+        );
 
         //adduser to database
         await _firestore
