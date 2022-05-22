@@ -7,6 +7,42 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:540403678087:android:bcf69befd051fbd35b3122",
+        "android_client_info": {
+          "package_name": "com.example.fire"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "540403678087-54s0m0pvoms58s43c6a1ciuo7gs2bcv9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmRE3oHbzppHeDzEVVckkknP7uGbwNz3I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "540403678087-54s0m0pvoms58s43c6a1ciuo7gs2bcv9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "540403678087-b4bihcok2vvjr9p91rnufatktsf4on5v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.instagram"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:540403678087:android:f27d6735bf6993c45b3122",
         "android_client_info": {
           "package_name": "com.example.instagram"
