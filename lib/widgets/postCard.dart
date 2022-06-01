@@ -10,6 +10,8 @@ import 'package:instagram/widgets/likeAnimation.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../screens/profileScreen.dart';
+
 class PostCard extends StatefulWidget {
   final snap;
   const PostCard({
@@ -33,7 +35,7 @@ class _PostCardState extends State<PostCard> {
     getCommentsSize();
   }
 
-  void getCommentsSize()  {
+  void getCommentsSize() {
     try {
       snap = FirebaseFirestore.instance
           .collection("posts")
@@ -44,16 +46,16 @@ class _PostCardState extends State<PostCard> {
         setState(() {
           commentSize = event.docs.length;
         });
-      },
-       onError: (err) {
+      }, onError: (err) {
         setState(() {
           commentSize = 0;
         });
-      }
-      );
+      });
     } catch (e) {
       // print(e.toString());
-      const AdvanceSnackBar(message: "unable to get Comment size",bgColor: Colors.red).show(context);
+      const AdvanceSnackBar(
+              message: "unable to get Comment size", bgColor: Colors.red)
+          .show(context);
     }
     // setState(() {
     //   commentSize = snap!.docs.length;
@@ -86,47 +88,55 @@ class _PostCardState extends State<PostCard> {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          widget.snap["username"],
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                        InkWell(
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  ProfileScreen(uid: widget.snap['uid']),
+                            ),
+                          ),
+                          child: Text(
+                            widget.snap["username"],
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
                         )
                       ],
                     ),
                   ),
                 ),
-
-                _user.uid == widget.snap["uid"]?
-                IconButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => Dialog(
-                          child: ListView(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 16,
+                _user.uid == widget.snap["uid"]
+                    ? IconButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => Dialog(
+                              child: ListView(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 16,
+                                ),
+                                shrinkWrap: true,
+                                children: ["Delete"]
+                                    .map(
+                                      (e) => InkWell(
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 4, horizontal: 16),
+                                          child: Text(e),
+                                        ),
+                                        onTap: () async {
+                                          await FirestoreMethods().deletePost(
+                                              widget.snap['postId']);
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
                             ),
-                            shrinkWrap: true,
-                            children: ["Delete"]
-                                .map(
-                                  (e) => InkWell(
-                                    child: Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 4, horizontal: 16),
-                                      child: Text(e),
-                                    ),
-                                    onTap: () async {
-                                      await FirestoreMethods()
-                                          .deletePost(widget.snap['postId']);
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                        ),
-                      );
-                    },
-                    icon: Icon(Icons.more_vert)): const SizedBox(),
+                          );
+                        },
+                        icon: Icon(Icons.more_vert))
+                    : const SizedBox(),
               ],
             ),
           ),

@@ -6,6 +6,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:instagram/model/userModel.dart';
 import 'package:instagram/providers/userProvider.dart';
 import 'package:instagram/resources/firestoreMethods.dart';
+import 'package:instagram/responsive/mobileScreenLayout.dart';
+import 'package:instagram/responsive/responsive_layout_screen.dart';
+import 'package:instagram/responsive/webScreenLayout.dart';
+import 'package:instagram/screens/loginScreen.dart';
 import 'package:instagram/utils/colors.dart';
 import 'package:instagram/utils/utils.dart';
 import 'package:instagram/widgets/textFieldInput.dart';
@@ -115,86 +119,128 @@ class _AddPostScreenState extends State<AddPostScreen> {
     }
 
     return _file == null
-        ? Center(
-            child: IconButton(
-              icon: const Icon(Icons.upload),
-              onPressed: () => _selectImage(context),
+        ? WillPopScope(
+            onWillPop: () async {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const ResponsiveLayout(
+                      webScreenLayout: WebScreenLayout(),
+                      mobileScreenLayout: MobileScreenLayout()),
+                ),
+              );
+              return false;
+            },
+            child: Scaffold(
+              appBar: AppBar(
+                  backgroundColor: mobileBackgroundColor,
+                  title: const Text("New Post")),
+              body: Center(
+                child: InkWell(
+                  onTap: () => _selectImage(context),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(Icons.cloud_upload),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        "Upload Photo",
+                        style: TextStyle(color: blueColor, fontSize: 24),
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ),
           )
-        : Scaffold(
-            appBar: AppBar(
-              backgroundColor: mobileBackgroundColor,
-              leading: IconButton(
-                icon: const Icon(
-                  Icons.west_rounded,
-                  size: 30,
+        : WillPopScope(
+            onWillPop: () async {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const ResponsiveLayout(
+                      webScreenLayout: WebScreenLayout(),
+                      mobileScreenLayout: MobileScreenLayout()),
                 ),
-                onPressed: clearImage,
-              ),
-              title: const Text(
-                "New Post",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              actions: [
-                IconButton(
-                  onPressed: () => postImage(_usermodel.uid,
-                      _usermodel.username, _usermodel.profImage),
+              );
+              return false;
+            },
+            child: Scaffold(
+              appBar: AppBar(
+                backgroundColor: mobileBackgroundColor,
+                leading: IconButton(
                   icon: const Icon(
-                    Icons.done,
-                    color: blueColor,
+                    Icons.west_rounded,
                     size: 30,
                   ),
-                  // child: const Text(
-                  //   "Post",
-                  //   style: TextStyle(
-                  //       color: blueColor, fontSize: 16, fontWeight: FontWeight.bold),
+                  onPressed: clearImage,
                 ),
-              ],
-            ),
-            body: Column(
-              children: [
-                _isloading
-                    ? const LinearProgressIndicator(
-                        minHeight: 2,
-                      )
-                    : Container(),
-                const Divider(
-                  thickness: 1,
+                title: const Text(
+                  "New Post",
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CircleAvatar(
-                      backgroundImage:
-                          Provider.of<UserProvider>(context).getProfilePic,
+                actions: [
+                  IconButton(
+                    onPressed: () => postImage(_usermodel.uid,
+                        _usermodel.username, _usermodel.profImage),
+                    icon: const Icon(
+                      Icons.done,
+                      color: blueColor,
+                      size: 30,
                     ),
-                    Container(
-                      // color: blueColor,
-                      width: MediaQuery.of(context).size.width * 0.5,
-                      child: TextField(
-                        controller: _descriptionController,
-                        decoration: const InputDecoration(
-                          hintText: "Write a caption...",
-                          border: InputBorder.none,
+                    // child: const Text(
+                    //   "Post",
+                    //   style: TextStyle(
+                    //       color: blueColor, fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              body: Column(
+                children: [
+                  _isloading
+                      ? const LinearProgressIndicator(
+                          minHeight: 2,
+                        )
+                      : Container(),
+                  const Divider(
+                    thickness: 1,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        backgroundImage:
+                            Provider.of<UserProvider>(context).getProfilePic,
+                      ),
+                      Container(
+                        // color: blueColor,
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: TextField(
+                          controller: _descriptionController,
+                          decoration: const InputDecoration(
+                            hintText: "Write a caption...",
+                            border: InputBorder.none,
+                          ),
+                          maxLines: 8,
                         ),
-                        maxLines: 8,
                       ),
-                    ),
-                    Container(
-                      width: 50,
-                      height: 50,
-                      child: Image(
-                        image: MemoryImage(_file!),
-                        fit: BoxFit.cover,
+                      Container(
+                        width: 50,
+                        height: 50,
+                        child: Image(
+                          image: MemoryImage(_file!),
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                const Divider(
-                  thickness: 1,
-                ),
-              ],
+                    ],
+                  ),
+                  const Divider(
+                    thickness: 1,
+                  ),
+                ],
+              ),
             ),
           );
   }
