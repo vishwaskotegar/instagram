@@ -94,6 +94,8 @@ class _PostCardState extends State<PostCard> {
                     ),
                   ),
                 ),
+
+                _user.uid == widget.snap["uid"]?
                 IconButton(
                     onPressed: () {
                       showDialog(
@@ -124,7 +126,7 @@ class _PostCardState extends State<PostCard> {
                         ),
                       );
                     },
-                    icon: Icon(Icons.more_vert))
+                    icon: Icon(Icons.more_vert)): const SizedBox(),
               ],
             ),
           ),

@@ -25,13 +25,13 @@ class _FeedScreenState extends State<FeedScreen> {
         actions: [IconButton(onPressed: () {}, icon: Icon(Icons.send))],
       ),
       body: StreamBuilder(
+        
         builder: (context,
             AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           }
           return ListView.builder(
-            
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
             return PostCard(snap: snapshot.data!.docs[index].data());
