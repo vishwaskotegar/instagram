@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:instagram/resources/firestoreMethods.dart';
-import 'package:instagram/screens/profileScreen.dart';
-import 'package:instagram/utils/colors.dart';
-import 'package:instagram/widgets/displayPost.dart';
+import '../resources/firestoreMethods.dart';
+import 'profileScreen.dart';
+import '../utils/colors.dart';
+import '../widgets/displayPost.dart';
 
 import '../responsive/mobileScreenLayout.dart';
 import '../responsive/responsive_layout_screen.dart';

@@ -3,8 +3,8 @@ import 'dart:typed_data';
 import 'package:advance_notification/advance_notification.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:instagram/model/postModel.dart';
-import 'package:instagram/resources/storageMethods.dart';
+import '../model/postModel.dart';
+import 'storageMethods.dart';
 import 'package:uuid/uuid.dart';
 
 class FirestoreMethods {

@@ -3,16 +3,16 @@ import 'dart:typed_data';
 import 'package:advance_notification/advance_notification.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:instagram/model/userModel.dart';
-import 'package:instagram/providers/userProvider.dart';
-import 'package:instagram/resources/firestoreMethods.dart';
-import 'package:instagram/responsive/mobileScreenLayout.dart';
-import 'package:instagram/responsive/responsive_layout_screen.dart';
-import 'package:instagram/responsive/webScreenLayout.dart';
-import 'package:instagram/screens/loginScreen.dart';
-import 'package:instagram/utils/colors.dart';
-import 'package:instagram/utils/utils.dart';
-import 'package:instagram/widgets/textFieldInput.dart';
+import '../model/userModel.dart';
+import '../providers/userProvider.dart';
+import '../resources/firestoreMethods.dart';
+import '../responsive/mobileScreenLayout.dart';
+import '../responsive/responsive_layout_screen.dart';
+import '../responsive/webScreenLayout.dart';
+import 'loginScreen.dart';
+import '../utils/colors.dart';
+import '../utils/utils.dart';
+import '../widgets/textFieldInput.dart';
 import 'package:provider/provider.dart';
 
 class AddPostScreen extends StatefulWidget {

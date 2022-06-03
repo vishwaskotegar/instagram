@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:instagram/utils/colors.dart';
-import 'package:instagram/widgets/notificationCard.dart';
+import '../utils/colors.dart';
+import '../widgets/notificationCard.dart';
 
 import '../responsive/mobileScreenLayout.dart';
 import '../responsive/responsive_layout_screen.dart';

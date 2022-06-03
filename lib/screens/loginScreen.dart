@@ -4,7 +4,7 @@ import 'package:advance_notification/advance_notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:instagram/resources/authMethods.dart';
+import '../resources/authMethods.dart';
 // import 'package:instagram/screens/homeScreen.dart';
 import 'package:instagram/screens/signupScreen.dart';
 import 'package:instagram/utils/colors.dart';
@@ -58,16 +58,13 @@ class _LoginScreenState extends State<LoginScreen> {
       _isLoading = false;
     });
 
-    
-
     if (res == "success") {
       AdvanceSnackBar(message: "Logged In", isFixed: false, bgColor: blueColor)
           .show(context);
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => const ResponsiveLayout(
-            webScreenLayout: WebScreenLayout(),
-            mobileScreenLayout: MobileScreenLayout())
-            ));
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+              webScreenLayout: WebScreenLayout(),
+              mobileScreenLayout: MobileScreenLayout())));
     } else {
       AdvanceSnackBar(message: res, bgColor: Colors.red, isFixed: false)
           .show(context);

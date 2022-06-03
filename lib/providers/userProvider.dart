@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:instagram/model/userModel.dart';
-import 'package:instagram/resources/authMethods.dart';
+import '../model/userModel.dart';
+import '../resources/authMethods.dart';
 
 class UserProvider with ChangeNotifier {
   UserModel? _userModel;

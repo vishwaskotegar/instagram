@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:instagram/resources/firestoreMethods.dart';
-import 'package:instagram/utils/colors.dart';
-import 'package:instagram/widgets/commentCard.dart';
+import '../resources/firestoreMethods.dart';
+import '../utils/colors.dart';
+import '../widgets/commentCard.dart';
 import 'package:provider/provider.dart';
 
 import '../model/userModel.dart';

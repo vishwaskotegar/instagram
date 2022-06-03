@@ -3,14 +3,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:instagram/firebase_options.dart';
-import 'package:instagram/providers/userProvider.dart';
-import 'package:instagram/responsive/mobileScreenLayout.dart';
-import 'package:instagram/responsive/responsive_layout_screen.dart';
-import 'package:instagram/responsive/webScreenLayout.dart';
-import 'package:instagram/screens/loginScreen.dart';
-import 'package:instagram/screens/signupScreen.dart';
-import 'package:instagram/utils/colors.dart';
+import 'firebase_options.dart';
+import 'providers/userProvider.dart';
+import 'responsive/mobileScreenLayout.dart';
+import 'responsive/responsive_layout_screen.dart';
+import 'responsive/webScreenLayout.dart';
+import 'screens/loginScreen.dart';
+import 'screens/signupScreen.dart';
+import 'utils/colors.dart';
 import 'package:provider/provider.dart';
 
 void main() async {

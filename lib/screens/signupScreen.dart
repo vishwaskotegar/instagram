@@ -4,10 +4,10 @@ import 'package:advance_notification/advance_notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:instagram/resources/authMethods.dart';
-import 'package:instagram/utils/colors.dart';
-import 'package:instagram/utils/utils.dart';
-import 'package:instagram/widgets/textFieldInput.dart';
+import '../resources/authMethods.dart';
+import '../utils/colors.dart';
+import '../utils/utils.dart';
+import '../widgets/textFieldInput.dart';
 
 import '../responsive/mobileScreenLayout.dart';
 import '../responsive/responsive_layout_screen.dart';
@@ -48,18 +48,19 @@ class _SignupScreenState extends State<SignupScreen> {
   void signUpUser() async {
     if (_image == null) {
       const AdvanceSnackBar(
-          message: "Please Upload an Image",
-          bgColor: Colors.red,
-          isFixed: false).show(context);
-          return;
-    }else if (_usernameController.text == "") {
+              message: "Please Upload an Image",
+              bgColor: Colors.red,
+              isFixed: false)
+          .show(context);
+      return;
+    } else if (_usernameController.text == "") {
       const AdvanceSnackBar(
-          message: "Please Enter Username!",
-          bgColor: Colors.red,
-          isFixed: false).show(context);
-          return;
+              message: "Please Enter Username!",
+              bgColor: Colors.red,
+              isFixed: false)
+          .show(context);
+      return;
     }
-    
 
     setState(() {
       _isLoading = true;

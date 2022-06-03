@@ -1,12 +1,12 @@
 import 'package:advance_notification/advance_notification.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:instagram/model/userModel.dart';
-import 'package:instagram/providers/userProvider.dart';
-import 'package:instagram/resources/firestoreMethods.dart';
-import 'package:instagram/screens/commentScreen.dart';
-import 'package:instagram/utils/colors.dart';
-import 'package:instagram/widgets/likeAnimation.dart';
+import '../model/userModel.dart';
+import '../providers/userProvider.dart';
+import '../resources/firestoreMethods.dart';
+import '../screens/commentScreen.dart';
+import '../utils/colors.dart';
+import 'likeAnimation.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 

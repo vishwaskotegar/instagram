@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:instagram/utils/globalVariables.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/userProvider.dart';
+import '../utils/globalVariables.dart';
 
 class ResponsiveLayout extends StatefulWidget {
   final Widget webScreenLayout;
