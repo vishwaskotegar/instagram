@@ -9,7 +9,8 @@ An instagram Clone app
  -apk : build\app\outputs\flutter-apk\app-release.apk
  
  screens -
-  ![sign in](https://drive.google.com/thumbnail?id=1lb8oEUfZIPqqHq0AJj3TaXq5_2PLByJW)
+ 
+ - ![sign in](https://drive.google.com/thumbnail?id=1lb8oEUfZIPqqHq0AJj3TaXq5_2PLByJW)
 
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
