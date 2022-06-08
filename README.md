@@ -38,8 +38,10 @@ An instagram Clone app
 
 # General user Profile Screen 
 - before following 
+
 ![Not following image](https://drive.google.com/thumbnail?id=1P29ajnYma34bK9j0WvbL-zHHSuRtI-u0  "Not following")
 - After following
+
 ![Following image](https://drive.google.com/thumbnail?id=1_bchqdWDMVKwj-UJ8-4STmSbmtx6gTmn "Following ") 
 
 For help getting started with Flutter, view our
