@@ -10,7 +10,7 @@ An instagram Clone app
 ```dart
 flutter build apk
 ```
- - build\app\outputs\flutter-apk\app-release.apk
+build\app\outputs\flutter-apk\app-release.apk
  - Web : 
  ```dart
  flutter run -d chrome --web-renderer html 
