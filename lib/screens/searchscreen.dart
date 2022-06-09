@@ -5,6 +5,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:instagram/resources/firestoreMethods.dart';
 import 'package:instagram/screens/profileScreen.dart';
 import 'package:instagram/utils/colors.dart';
+import 'package:instagram/utils/globalVariables.dart';
 import 'package:instagram/widgets/displayPost.dart';
 
 import '../responsive/mobileScreenLayout.dart';
@@ -30,6 +31,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
     return WillPopScope(
       onWillPop: () async {
         Navigator.of(context).pushReplacement(
@@ -41,94 +43,100 @@ class _SearchScreenState extends State<SearchScreen> {
         );
         return false;
       },
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: mobileBackgroundColor,
-          title: TextFormField(
-            controller: searchController,
-            decoration: InputDecoration(
-                focusedBorder: InputBorder.none,
-                labelText: "Search a user",
-                enabledBorder: InputBorder.none),
-            onFieldSubmitted: (String _) {
-              setState(() {
-                isShowUsers = true;
-              });
-            },
+      child: Container(
+        margin: EdgeInsets.symmetric(
+            horizontal: width > webScreenSize ? width / 5 : 0),
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: mobileBackgroundColor,
+            title: TextFormField(
+              controller: searchController,
+              decoration: InputDecoration(
+                  focusedBorder: InputBorder.none,
+                  labelText: "Search a user",
+                  enabledBorder: InputBorder.none),
+              onFieldSubmitted: (String _) {
+                setState(() {
+                  isShowUsers = true;
+                });
+              },
+            ),
           ),
-        ),
-        body: isShowUsers
-            ? FutureBuilder(
-                future: FirebaseFirestore.instance
-                    .collection("users")
-                    .where(
-                      'username',
-                      isGreaterThanOrEqualTo: searchController.text,
-                    )
-                    .get(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
+          body: isShowUsers
+              ? FutureBuilder(
+                  future: FirebaseFirestore.instance
+                      .collection("users")
+                      .where(
+                        'username',
+                        isGreaterThanOrEqualTo: searchController.text,
+                      )
+                      .get(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
 
-                  return ListView.builder(
-                    itemBuilder: (context, index) {
-                      print((snapshot.data as dynamic));
-                      return InkWell(
-                        onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => ProfileScreen(
-                                    uid: (snapshot.data as dynamic).docs[index]
-                                        ['uid']))),
-                        child: (snapshot.data as dynamic).docs[index]['uid'] ==
-                                FirebaseAuth.instance.currentUser!.uid
-                            ? Container()
-                            : ListTile(
-                                leading: CircleAvatar(
-                                  backgroundImage: NetworkImage(
-                                      (snapshot.data as dynamic).docs[index]
-                                          ['profImage']),
+                    return ListView.builder(
+                      itemBuilder: (context, index) {
+                        print((snapshot.data as dynamic));
+                        return InkWell(
+                          onTap: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => ProfileScreen(
+                                      uid: (snapshot.data as dynamic)
+                                          .docs[index]['uid']))),
+                          child: (snapshot.data as dynamic).docs[index]
+                                      ['uid'] ==
+                                  FirebaseAuth.instance.currentUser!.uid
+                              ? Container()
+                              : ListTile(
+                                  leading: CircleAvatar(
+                                    backgroundImage: NetworkImage(
+                                        (snapshot.data as dynamic).docs[index]
+                                            ['profImage']),
+                                  ),
+                                  title: Text((snapshot.data as dynamic)
+                                      .docs[index]['username']),
                                 ),
-                                title: Text((snapshot.data as dynamic)
-                                    .docs[index]['username']),
-                              ),
-                      );
-                    },
-                    itemCount: (snapshot.data as dynamic).docs.length < 8
-                        ? (snapshot.data as dynamic).docs.length
-                        : 8,
-                  );
-                },
-              )
-            : FutureBuilder(
-                future: FirebaseFirestore.instance.collection("posts").get(),
-                builder: (context,
-                    AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-                        snapshot) {
-                  if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                  return MasonryGridView.count(
-                    itemCount: snapshot.data!.docs.length,
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 4,
-                    crossAxisSpacing: 4,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () =>
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => DisplayPost(
-                                      snap: snapshot.data!.docs[index].data(),
-                                    ))),
-                        child: Image.network(
-                            snapshot.data!.docs[index]["photoUrl"]),
-                      );
-                    },
-                  );
-                },
-              ),
+                        );
+                      },
+                      itemCount: (snapshot.data as dynamic).docs.length < 8
+                          ? (snapshot.data as dynamic).docs.length
+                          : 8,
+                    );
+                  },
+                )
+              : FutureBuilder(
+                  future: FirebaseFirestore.instance.collection("posts").get(),
+                  builder: (context,
+                      AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                          snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    var width = MediaQuery.of(context).size.width;
+                    return MasonryGridView.count(
+                      itemCount: snapshot.data!.docs.length,
+                      crossAxisCount: width > webScreenSize ? 3 : 2,
+                      mainAxisSpacing: 4,
+                      crossAxisSpacing: 4,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () =>
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => DisplayPost(
+                                        snap: snapshot.data!.docs[index].data(),
+                                      ))),
+                          child: Image.network(
+                              snapshot.data!.docs[index]["photoUrl"]),
+                        );
+                      },
+                    );
+                  },
+                ),
+        ),
       ),
     );
   }

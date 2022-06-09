@@ -11,6 +11,7 @@ import 'package:instagram/responsive/responsive_layout_screen.dart';
 import 'package:instagram/responsive/webScreenLayout.dart';
 import 'package:instagram/screens/loginScreen.dart';
 import 'package:instagram/utils/colors.dart';
+import 'package:instagram/utils/globalVariables.dart';
 import 'package:instagram/utils/utils.dart';
 import 'package:instagram/widgets/textFieldInput.dart';
 import 'package:provider/provider.dart';
@@ -118,6 +119,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
           });
     }
 
+    var width = MediaQuery.of(context).size.width;
     return _file == null
         ? WillPopScope(
             onWillPop: () async {
@@ -130,26 +132,30 @@ class _AddPostScreenState extends State<AddPostScreen> {
               );
               return false;
             },
-            child: Scaffold(
-              appBar: AppBar(
-                  backgroundColor: mobileBackgroundColor,
-                  title: const Text("New Post")),
-              body: Center(
-                child: InkWell(
-                  onTap: () => _selectImage(context),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.cloud_upload),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        "Upload Photo",
-                        style: TextStyle(color: blueColor, fontSize: 24),
-                      )
-                    ],
+            child: Container(
+              margin: EdgeInsets.symmetric(
+                  horizontal: width > webScreenSize ? width / 4 : 0),
+              child: Scaffold(
+                appBar: AppBar(
+                    backgroundColor: mobileBackgroundColor,
+                    title: const Text("New Post")),
+                body: Center(
+                  child: InkWell(
+                    onTap: () => _selectImage(context),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(Icons.cloud_upload),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          "Upload Photo",
+                          style: TextStyle(color: blueColor, fontSize: 24),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -166,80 +172,84 @@ class _AddPostScreenState extends State<AddPostScreen> {
               );
               return false;
             },
-            child: Scaffold(
-              appBar: AppBar(
-                backgroundColor: mobileBackgroundColor,
-                leading: IconButton(
-                  icon: const Icon(
-                    Icons.west_rounded,
-                    size: 30,
-                  ),
-                  onPressed: clearImage,
-                ),
-                title: const Text(
-                  "New Post",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                actions: [
-                  IconButton(
-                    onPressed: () => postImage(_usermodel.uid,
-                        _usermodel.username, _usermodel.profImage),
+            child: Container(
+              margin: EdgeInsets.symmetric(
+                  horizontal: width > webScreenSize ? width / 4 : 0),
+              child: Scaffold(
+                appBar: AppBar(
+                  backgroundColor: mobileBackgroundColor,
+                  leading: IconButton(
                     icon: const Icon(
-                      Icons.done,
-                      color: blueColor,
+                      Icons.west_rounded,
                       size: 30,
                     ),
-                    // child: const Text(
-                    //   "Post",
-                    //   style: TextStyle(
-                    //       color: blueColor, fontSize: 16, fontWeight: FontWeight.bold),
+                    onPressed: clearImage,
                   ),
-                ],
-              ),
-              body: Column(
-                children: [
-                  _isloading
-                      ? const LinearProgressIndicator(
-                          minHeight: 2,
-                        )
-                      : Container(),
-                  const Divider(
-                    thickness: 1,
+                  title: const Text(
+                    "New Post",
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CircleAvatar(
-                        backgroundImage:
-                            Provider.of<UserProvider>(context).getProfilePic,
+                  actions: [
+                    IconButton(
+                      onPressed: () => postImage(_usermodel.uid,
+                          _usermodel.username, _usermodel.profImage),
+                      icon: const Icon(
+                        Icons.done,
+                        color: blueColor,
+                        size: 30,
                       ),
-                      Container(
-                        // color: blueColor,
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        child: TextField(
-                          controller: _descriptionController,
-                          decoration: const InputDecoration(
-                            hintText: "Write a caption...",
-                            border: InputBorder.none,
+                      // child: const Text(
+                      //   "Post",
+                      //   style: TextStyle(
+                      //       color: blueColor, fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                body: Column(
+                  children: [
+                    _isloading
+                        ? const LinearProgressIndicator(
+                            minHeight: 2,
+                          )
+                        : Container(),
+                    const Divider(
+                      thickness: 1,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CircleAvatar(
+                          backgroundImage:
+                              Provider.of<UserProvider>(context).getProfilePic,
+                        ),
+                        SizedBox(
+                          // color: blueColor,
+                          width: width * 0.3,
+                          child: TextField(
+                            controller: _descriptionController,
+                            decoration: const InputDecoration(
+                              hintText: "Write a caption...",
+                              border: InputBorder.none,
+                            ),
+                            maxLines: 8,
                           ),
-                          maxLines: 8,
                         ),
-                      ),
-                      Container(
-                        width: 50,
-                        height: 50,
-                        child: Image(
-                          image: MemoryImage(_file!),
-                          fit: BoxFit.cover,
+                        SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: Image(
+                            image: MemoryImage(_file!),
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const Divider(
-                    thickness: 1,
-                  ),
-                ],
+                      ],
+                    ),
+                    const Divider(
+                      thickness: 1,
+                    ),
+                  ],
+                ),
               ),
             ),
           );

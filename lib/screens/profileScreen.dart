@@ -18,6 +18,7 @@ import 'package:provider/provider.dart';
 import '../responsive/mobileScreenLayout.dart';
 import '../responsive/responsive_layout_screen.dart';
 import '../responsive/webScreenLayout.dart';
+import '../utils/globalVariables.dart';
 
 class ProfileScreen extends StatefulWidget {
   final String uid;
@@ -88,6 +89,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     // UserModel userModel = Provider.of<UserProvider>(context).getUser;
+    var width = MediaQuery.of(context).size.width;
     return isloading
         ? const Scaffold(
             body: SafeArea(
@@ -107,153 +109,171 @@ class _ProfileScreenState extends State<ProfileScreen> {
               );
               return false;
             },
-            child: Scaffold(
-              appBar: AppBar(
-                title: Text(userData["username"]),
-                backgroundColor: mobileBackgroundColor,
-              ),
-              body: ListView(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      // mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Row(
+            child: Container(
+              color: webBackgroundColor,
+              child: Container(
+                margin: EdgeInsets.symmetric(
+                    horizontal: width > webScreenSize ? width / 4 : 0),
+                child: Scaffold(
+                  appBar: AppBar(
+                    title: Text(userData["username"]),
+                    backgroundColor: mobileBackgroundColor,
+                  ),
+                  body: ListView(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          // mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            CircleAvatar(
-                              backgroundImage:
-                                  NetworkImage(userData['profImage']),
-                              radius: 40,
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                            Row(
+                              children: [
+                                CircleAvatar(
+                                  backgroundImage:
+                                      NetworkImage(userData['profImage']),
+                                  radius: 40,
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      buildStatColumn(postlenth, "Posts"),
-                                      buildStatColumn(followers, "Followers"),
-                                      buildStatColumn(following, "Following")
-                                    ],
-                                  ),
-                                  Provider.of<UserProvider>(context)
-                                              .getUser
-                                              .uid ==
-                                          widget.uid
-                                      ? ProfileButton(
-                                          function: () async {
-                                            AuthMethods().signOut();
-                                            Navigator.of(context)
-                                                .pushReplacement(
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const LoginScreen(),
-                                              ),
-                                            );
-                                          },
-                                          text: "Sign out",
-                                          borderColor: primaryColor,
-                                          color: mobileBackgroundColor,
-                                        )
-                                      : isFollowing
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          buildStatColumn(postlenth, "Posts"),
+                                          buildStatColumn(
+                                              followers, "Followers"),
+                                          buildStatColumn(
+                                              following, "Following")
+                                        ],
+                                      ),
+                                      Provider.of<UserProvider>(context)
+                                                  .getUser
+                                                  .uid ==
+                                              widget.uid
                                           ? ProfileButton(
                                               function: () async {
-                                                FirestoreMethods().followUser(
-                                                    FirebaseAuth.instance
-                                                        .currentUser!.uid,
-                                                    widget.uid);
+                                                AuthMethods().signOut();
+                                                Navigator.of(context)
+                                                    .pushReplacement(
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const LoginScreen(),
+                                                  ),
+                                                );
                                               },
-                                              text: "Unfollow",
+                                              text: "Sign out",
                                               borderColor: primaryColor,
-                                              color: primaryColor,
+                                              color: mobileBackgroundColor,
                                             )
-                                          : ProfileButton(
-                                              function: () async {
-                                                FirestoreMethods().followUser(
-                                                    FirebaseAuth.instance
-                                                        .currentUser!.uid,
-                                                    widget.uid);
-                                              },
-                                              text: "follow",
-                                              borderColor: blueColor,
-                                              color: blueColor,
-                                            ),
+                                          : isFollowing
+                                              ? ProfileButton(
+                                                  function: () async {
+                                                    FirestoreMethods()
+                                                        .followUser(
+                                                            FirebaseAuth
+                                                                .instance
+                                                                .currentUser!
+                                                                .uid,
+                                                            widget.uid);
+                                                  },
+                                                  text: "Unfollow",
+                                                  borderColor: primaryColor,
+                                                  color: primaryColor,
+                                                )
+                                              : ProfileButton(
+                                                  function: () async {
+                                                    FirestoreMethods()
+                                                        .followUser(
+                                                            FirebaseAuth
+                                                                .instance
+                                                                .currentUser!
+                                                                .uid,
+                                                            widget.uid);
+                                                  },
+                                                  text: "follow",
+                                                  borderColor: blueColor,
+                                                  color: blueColor,
+                                                ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(top: 8),
+                              alignment: Alignment.centerLeft,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    userData['username'],
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  ),
+                                  Text(
+                                    userData['bio'],
+                                  ),
                                 ],
                               ),
                             ),
                           ],
                         ),
-                        Container(
-                          padding: EdgeInsets.only(top: 8),
-                          alignment: Alignment.centerLeft,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                userData['username'],
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16),
-                              ),
-                              Text(
-                                userData['bio'],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Divider(
-                    thickness: 1,
-                  ),
-                  FutureBuilder(
-                    future: FirebaseFirestore.instance
-                        .collection('posts')
-                        .where('uid', isEqualTo: widget.uid)
-                        .get(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Container();
-                      }
-                      return GridView.builder(
-                        itemCount: (snapshot.data! as dynamic).docs.length,
-                        shrinkWrap: true,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                childAspectRatio: 1,
-                                crossAxisSpacing: 5,
-                                mainAxisSpacing: 1.5),
-                        itemBuilder: (context, index) {
-                          DocumentSnapshot postSnap =
-                              (snapshot.data! as dynamic).docs[index];
+                      ),
+                      const Divider(
+                        thickness: 1,
+                      ),
+                      FutureBuilder(
+                        future: FirebaseFirestore.instance
+                            .collection('posts')
+                            .where('uid', isEqualTo: widget.uid)
+                            .get(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Container();
+                          }
+                          return GridView.builder(
+                            itemCount: (snapshot.data! as dynamic).docs.length,
+                            shrinkWrap: true,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 3,
+                                    childAspectRatio: 1,
+                                    crossAxisSpacing: 5,
+                                    mainAxisSpacing: 1.5),
+                            itemBuilder: (context, index) {
+                              DocumentSnapshot postSnap =
+                                  (snapshot.data! as dynamic).docs[index];
 
-                          return InkWell(
-                            onTap: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => DisplayPost(
-                                        snap: (snapshot.data! as dynamic)
-                                            .docs[index]
-                                            .data(),
-                                      )),
-                            ),
-                            child: Image(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                (postSnap.data()! as dynamic)["photoUrl"],
-                              ),
-                            ),
+                              return InkWell(
+                                onTap: () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => DisplayPost(
+                                      snap: (snapshot.data! as dynamic)
+                                          .docs[index]
+                                          .data(),
+                                    ),
+                                  ),
+                                ),
+                                child: Image(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(
+                                    (postSnap.data()! as dynamic)["photoUrl"],
+                                  ),
+                                ),
+                              );
+                            },
                           );
                         },
-                      );
-                    },
-                  )
-                ],
+                      )
+                    ],
+                  ),
+                ),
               ),
             ),
           );
