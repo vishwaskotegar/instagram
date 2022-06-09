@@ -6,7 +6,11 @@ An instagram Clone app
 
  - The app consists of user state management, database management, flutter concepts, material theme UI
  
- - Android apk : build\app\outputs\flutter-apk\app-release.apk
+ - Android apk : 
+```dart
+flutter build apk
+```
+ - build\app\outputs\flutter-apk\app-release.apk
  - Web : 
  ```dart
  flutter run -d chrome --web-renderer html 
