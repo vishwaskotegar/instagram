@@ -2,7 +2,7 @@
 
 An instagram Clone app
 
-## This is an app built using FLUTTER and FIREBASE
+## Built using FLUTTER and FIREBASE
 
  - The app consists of user state management, database management, flutter concepts, material theme UI
  
