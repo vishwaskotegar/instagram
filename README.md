@@ -2,11 +2,19 @@
 
 An instagram Clone app
 
-## This is an app built using FLUTTER and FIREBASE
+## Built using FLUTTER and FIREBASE
 
- -The app consists of user state management, database management, flutter concepts, material theme UI
+ - The app consists of user state management, database management, flutter concepts, material theme UI
  
- -apk : build\app\outputs\flutter-apk\app-release.apk
+ - Android apk : 
+```dart
+flutter build apk
+```
+apk location - build\app\outputs\flutter-apk\app-release.apk
+ - Web : 
+ ```dart
+ flutter run -d chrome --web-renderer html 
+ ```
  
 # Screens -
 ## Login screen
