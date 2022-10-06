@@ -48,18 +48,19 @@ class _SignupScreenState extends State<SignupScreen> {
   void signUpUser() async {
     if (_image == null) {
       const AdvanceSnackBar(
-          message: "Please Upload an Image",
-          bgColor: Colors.red,
-          isFixed: false).show(context);
-          return;
-    }else if (_usernameController.text == "") {
+              message: "Please Upload an Image",
+              bgColor: Colors.red,
+              isFixed: false)
+          .show(context);
+      return;
+    } else if (_usernameController.text == "") {
       const AdvanceSnackBar(
-          message: "Please Enter Username!",
-          bgColor: Colors.red,
-          isFixed: false).show(context);
-          return;
+              message: "Please Enter Username!",
+              bgColor: Colors.red,
+              isFixed: false)
+          .show(context);
+      return;
     }
-    
 
     setState(() {
       _isLoading = true;
