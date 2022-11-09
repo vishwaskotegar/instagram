@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
 import 'package:instagram/resources/firestoreMethods.dart';
 import 'package:instagram/utils/colors.dart';
 import 'package:instagram/widgets/commentCard.dart';
@@ -51,7 +52,8 @@ class _CommentScreenState extends State<CommentScreen> {
           centerTitle: false,
         ),
         body: StreamBuilder(
-          builder: (context, snapshot) {
+          builder: (context,
+              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                 child: CircularProgressIndicator(),
@@ -59,8 +61,8 @@ class _CommentScreenState extends State<CommentScreen> {
             } else {
               return ListView.builder(
                 itemCount: (snapshot.data! as dynamic).docs.length,
-                itemBuilder: (context, index) => CommentCard(
-                    snap: (snapshot.data! as dynamic).docs[index].data()),
+                itemBuilder: (context, index) =>
+                    CommentCard(snap: snapshot.data!.docs[index].data()),
               );
             }
           },
@@ -112,7 +114,7 @@ class _CommentScreenState extends State<CommentScreen> {
                   padding: const EdgeInsets.all(8),
                   child: const Text(
                     "Post",
-                    style: const TextStyle(color: blueColor),
+                    style: TextStyle(color: blueColor),
                   ),
                 ),
               )

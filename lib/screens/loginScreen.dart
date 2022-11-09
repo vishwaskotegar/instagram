@@ -60,7 +60,8 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     if (res == "success") {
-      AdvanceSnackBar(message: "Logged In", isFixed: false, bgColor: blueColor)
+      const AdvanceSnackBar(
+              message: "Logged In", isFixed: false, bgColor: blueColor)
           .show(context);
       Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => const ResponsiveLayout(
@@ -95,10 +96,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   flex: 1,
                 ),
                 //svg image
-                SvgPicture.asset(
-                  'assets/images/ic_instagram.svg',
-                  color: primaryColor,
-                  height: 64,
+                Hero(
+                  tag: "Splash",
+                  child: SvgPicture.asset(
+                    'assets/images/MemeBucket.svg',
+                    color: primaryColor,
+                    height: 64,
+                  ),
                 ),
                 const SizedBox(
                   height: 64,
@@ -175,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 //login buttton
                 _isLoading
-                    ? CircularProgressIndicator()
+                    ? const CircularProgressIndicator()
                     : InkWell(
                         onTap: loginUser,
                         child: Container(
@@ -199,14 +203,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: Text("Dont have an account?"),
                     ),
                     InkWell(
                       onTap: () => Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => const SignupScreen())),
-                      child: Text(
+                      child: const Text(
                         "Sign up",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),

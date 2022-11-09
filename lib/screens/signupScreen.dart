@@ -107,7 +107,7 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               //svg image
               SvgPicture.asset(
-                'assets/images/ic_instagram.svg',
+                'assets/images/MemeBucket.svg',
                 color: primaryColor,
                 height: 64,
               ),
@@ -137,7 +137,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       // left: 80,
                       child: IconButton(
                         onPressed: () => selectImage(),
-                        icon: Icon(Icons.add_a_photo),
+                        icon: const Icon(Icons.add_a_photo),
                       ))
                 ],
               ),

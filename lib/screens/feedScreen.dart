@@ -24,11 +24,13 @@ class _FeedScreenState extends State<FeedScreen> {
           : AppBar(
               backgroundColor: mobileBackgroundColor,
               title: SvgPicture.asset(
-                "assets/images/ic_instagram.svg",
+                "assets/images/MemeBucket.svg",
                 color: primaryColor,
                 height: 32,
               ),
-              actions: [IconButton(onPressed: () {}, icon: Icon(Icons.send))],
+              actions: [
+                IconButton(onPressed: () {}, icon: const Icon(Icons.send))
+              ],
             ),
       body: StreamBuilder(
         builder: (context,
